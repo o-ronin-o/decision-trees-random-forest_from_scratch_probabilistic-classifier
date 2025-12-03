@@ -10,7 +10,7 @@ This repository contains complete from-scratch implementations of:
 The project follows a full ML pipeline: dataset preparation, stratified splitting,
 hyperparameter tuning, evaluation, metrics, visualization, and model comparison.
 
----
+
 
 ## 🚀 Project Structure
 
@@ -46,7 +46,7 @@ hyperparameter tuning, evaluation, metrics, visualization, and model comparison.
 │   ├── requirements.txt
 │   └── run_all.py
 
----
+
 
 ## 🔍 Implemented Models
 
