@@ -14,45 +14,37 @@ hyperparameter tuning, evaluation, metrics, visualization, and model comparison.
 
 ## 🚀 Project Structure
 
-decision-trees-random-forest_from_scratch_probabilistic-classifier/
-    │
-    ├── data/
-    │   ├── raw/
-    │   └── processed/
-    │
-    ├── src/
-    │   ├── utils/
-    │   │   ├── data_split.py
-    │   │   ├── metrics.py
-    │   │   └── plots.py
-    │   │
-    │   ├── models/
-    │   │   ├── gaussian_generative.py
-    │   │   ├── naive_bayes.py
-    │   │   ├── decision_tree.py
-    │   │   └── random_forest.py
-    │   │
-    │   ├── training/
-    │   │   ├── train_gaussian.py
-    │   │   ├── train_naive_bayes.py
-    │   │   ├── train_decision_tree.py
-    │   │   └── train_random_forest.py
-    │   │
-    │   └── evaluation/
-    │       ├── evaluate_gaussian.py
-    │       ├── evaluate_naive_bayes.py
-    │       ├── evaluate_decision_tree.py
-    │       └── evaluate_random_forest.py
-    │
-    ├── notebooks/
-    ├── tests/
-    │   ├── test_tree.py
-    │   └── test_nb.py
-    │
-    ├── README.md
-    ├── requirements.txt
-    └── run_all.py
-
+├── decision-trees-random-forest_from_scratch_probabilistic-classifier/
+│   ├── data/
+│   │   ├── raw/
+│   │   └── processed/
+│   ├── src/
+│   │   ├── utils/
+│   │   │   ├── data_split.py
+│   │   │   ├── metrics.py
+│   │   │   └── plots.py
+│   │   ├── models/
+│   │   │   ├── gaussian_generative.py
+│   │   │   ├── naive_bayes.py
+│   │   │   ├── decision_tree.py
+│   │   │   └── random_forest.py
+│   │   ├── training/
+│   │   │   ├── train_gaussian.py
+│   │   │   ├── train_naive_bayes.py
+│   │   │   ├── train_decision_tree.py
+│   │   │   └── train_random_forest.py
+│   │   └── evaluation/
+│   │       ├── evaluate_gaussian.py
+│   │       ├── evaluate_naive_bayes.py
+│   │       ├── evaluate_decision_tree.py
+│   │       └── evaluate_random_forest.py
+│   ├── notebooks/
+│   ├── tests/
+│   │   ├── test_tree.py
+│   │   └── test_nb.py
+│   ├── README.md
+│   ├── requirements.txt
+│   └── run_all.py
 
 ---
 
