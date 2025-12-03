@@ -68,7 +68,7 @@ This project demonstrates:
 - Ensemble learning and variance reduction  
 - Real-world datasets (Digits, Adult, Breast Cancer)
 
-This builds your skill in:
+This builds skills in:
 - Mathematical modeling  
 - Core ML algorithms  
 - Software structuring and modular pipelines  
