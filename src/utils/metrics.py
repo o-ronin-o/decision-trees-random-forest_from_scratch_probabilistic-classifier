@@ -16,6 +16,16 @@ def calculate_metrics(y_true, y_pred, label = ''):
     return metrics
 
 
+def calculate_metrics_macro(y_true, y_pred, label=''):
+    metrics = {
+        f'{label}accuracy': accuracy_score(y_true, y_pred),
+        f'{label}precision': precision_score(y_true, y_pred, average='macro', zero_division=0),
+        f'{label}recall': recall_score(y_true, y_pred, average='macro', zero_division=0),
+        f'{label}f1_score': f1_score(y_true, y_pred, average='macro', zero_division=0),
+        
+    }
+    return metrics
+
 def analyze_tree_complexity(model):
     """Analyze tree structure and complexity"""
     n_nodes = model.no_nodes
