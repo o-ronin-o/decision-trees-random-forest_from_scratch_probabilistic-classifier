@@ -13,9 +13,6 @@ sys.path.append(project_root)
 from src.models.naive_bayes import NaiveBayesClassifier
 
 def load_and_process_data(filepath):
-    """
-    Loads the Adult dataset and prepares it for Naive Bayes.
-    """
     columns = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 
                'marital-status', 'occupation', 'relationship', 'race', 'sex', 
                'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'income']
