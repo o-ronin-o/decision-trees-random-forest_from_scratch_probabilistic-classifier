@@ -72,18 +72,3 @@ This builds skills in:
 - Software structuring and modular pipelines  
 - Experimental analysis  
 
----
-
-## 🛠 Requirements
-
-numpy
-pandas
-scikit-learn
-matplotlib
-
-
----
-
-## 📦 Running Everything
-
-python run_all.py
