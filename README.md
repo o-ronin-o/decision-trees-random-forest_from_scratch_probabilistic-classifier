@@ -68,7 +68,6 @@ This project demonstrates:
 
 This builds skills in:
 - Mathematical modeling  
-- Core ML algorithms  
-- Software structuring and modular pipelines  
+- Core ML algorithms    
 - Experimental analysis  
 
