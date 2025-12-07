@@ -1,8 +1,9 @@
 import numpy as np 
 from collections import Counter
+import pandas as pd
 
 class Node:
-    def __init__(self, feature = None, threshold = None, right = None,left = None,*,val = None):
+    def __init__(self, feature = None, threshold = None,left = None, right = None,*,val = None):
         self.feature = feature
         self.threshold = threshold
         self.right = right
@@ -23,9 +24,17 @@ class DecisionTree:
         self.max_depth = max_depth
         self.n_features = n_features
         self.root = None
+        self.features_importance = []
+        self.no_nodes = 0
+        self.no_leaves = 0
+        self.max_reached_depth = 0
+        
+
+    # def _add_feature_importance(self,label = '', gain = None):
+    #     self.features_importance.append({"Feature Name" : label , "Gain": gain})
 
     def fit(self, X, y):
-        self.n_features = X.shape[1] if not self.n_feature else min(X.shape[1],self.n_features)
+        self.n_features = X.shape[1] if not self.n_features else min(X.shape[1],self.n_features)
         self.root = self._grow_tree(X,y)
 
 
@@ -34,6 +43,7 @@ class DecisionTree:
         # getting required info from data 
         n_samples,n_features =  X.shape
         n_labels = len(np.unique(y))
+        self.max_reached_depth = max(self.max_reached_depth, depth)
 
         #stoping criteria 
         """
@@ -46,6 +56,8 @@ class DecisionTree:
         """
         if(depth >= self.max_depth or n_labels == 1 or n_samples <= self.min_samples):
             value = self._most_common_label(y)
+            self.no_leaves += 1
+            self.no_nodes +=1 
             return Node(val=value)
 
         # we shall provide optional randomness in case we extend to random forest
@@ -60,11 +72,36 @@ class DecisionTree:
         left_idxs,right_idxs = self._split(X[:,best_feature], best_threshold)
         left = self._grow_tree(X[left_idxs,:],y[left_idxs], depth+1)
         right = self._grow_tree(X[right_idxs,:],y[right_idxs], depth+1)
+        
 
-
+        self.no_nodes +=1
         return Node(best_feature,best_threshold,left,right)
     
-    
+    def calculate_feature_importance(self, feature_names=None):
+        """
+        Calculate feature importance by aggregating information gain for each feature.
+        """
+        # Extract feature names and Gains
+        features = [n["Feature Name"] for n in self.features_importance]
+        gains = [n["Gain"] for n in self.features_importance]
+
+        # Aggregate gains per feature
+        df = pd.DataFrame({
+            "feature": features,
+            "gain": gains
+        })
+
+        importance_df = (
+            df.groupby("feature")["gain"]
+            .sum()                      # total gain
+            .sort_values(ascending=False)
+            .reset_index()
+        )
+
+        importance_df.columns = ["feature", "importance"]
+        return importance_df
+
+
     
     # we predict by traversing the tree we created 
     def predict(self, X):
@@ -89,21 +126,27 @@ class DecisionTree:
     def _best_split(self,X,y,feat_idxs):
         best_gain = -1 
         split_threshold, split_idx = None, None
+        local_importances = []
 
         # i loop on all features 
         for idx in feat_idxs:
             x_column = X[:,idx]
             thresholds = np.unique(x_column)
-
+            best_feature_gain = -1
             # for each feature unique threshold we calculate gain 
             for thr in thresholds:
                 gain = self._information_gain(y , x_column, thr)
+
+                if gain > best_feature_gain:
+                    best_feature_gain = gain
 
                 # better gain? switch!
                 if gain > best_gain:
                     best_gain = gain
                     split_idx = idx 
                     split_threshold = thr
+            local_importances.append({"Feature Name": f"Feature {idx}", "Gain": float(best_feature_gain)})
+        self.features_importance.extend(local_importances)
 
         return split_threshold, split_idx
 

@@ -5,13 +5,39 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 
 
 
-def classification_metrics(y_true, y_pred):
-   
-    return {
-        "accuracy": accuracy_score(y_true, y_pred),
-        "precision": precision_score(y_true, y_pred),
-        "recall": recall_score(y_true, y_pred),
-        "f1_score": f1_score(y_true, y_pred),
-        "confusion_matrix": confusion_matrix(y_true, y_pred)
-    }
+def calculate_metrics(y_true, y_pred, label = ''):
+    metrics = {
+                f'{label}accuracy': accuracy_score(y_true, y_pred),
+                f'{label}precision': precision_score(y_true, y_pred),
+                f'{label}recall': recall_score(y_true, y_pred),
+                f'{label}f1_score': f1_score(y_true, y_pred),
+                f'{label}confusion_matrix': confusion_matrix(y_true, y_pred)
+            }
+    return metrics
 
+
+def calculate_metrics_macro(y_true, y_pred, label=''):
+    metrics = {
+        f'{label}accuracy': accuracy_score(y_true, y_pred),
+        f'{label}precision': precision_score(y_true, y_pred, average='macro', zero_division=0),
+        f'{label}recall': recall_score(y_true, y_pred, average='macro', zero_division=0),
+        f'{label}f1_score': f1_score(y_true, y_pred, average='macro', zero_division=0),
+        
+    }
+    return metrics
+
+def analyze_tree_complexity(model):
+    """Analyze tree structure and complexity"""
+    n_nodes = model.no_nodes
+    n_leaves = model.no_leaves
+    depth = model.max_reached_depth
+
+    
+    complexity_metrics = {
+        'Number of Nodes': n_nodes,
+        'Number of Leaves': n_leaves,
+        'Tree Depth': depth,
+        'Branching Factor': (n_nodes - n_leaves) / (n_nodes - 1) if n_nodes > 1 else 0
+    }
+    
+    return complexity_metrics
